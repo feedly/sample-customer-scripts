@@ -28,7 +28,7 @@ Setting up a virtual environment and installing dependencies:
 Example usage:
 
 1. To save the output as a CSV file (default):
-python ioc_fetcher.py --token YOUR_API_KEY --stream_id YOUR_STREAM_ID --article_count 3
+python feedly_fetcher.py --token YOUR_API_KEY --stream_id YOUR_STREAM_ID --article_count 3
 """
 
 import argparse
