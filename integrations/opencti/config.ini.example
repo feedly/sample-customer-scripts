@@ -1,0 +1,10 @@
+[DEFAULT]
+fetch_since_midnight = True
+
+[feedly]
+stream_id = your_stream_id
+api_key = your_api_key
+
+[opencti]
+url = your_opencti_url
+api_key = your_opencti_api_key
