@@ -1,10 +1,10 @@
+[OpenCTI]
+url = <Your OpenCTI URL>
+api_key = <Your OpenCTI API Key>
+
+[Feedly]
+stream_id = <Your Feedly Stream ID>
+api_key = <Your Feedly API Key>
+
 [DEFAULT]
-fetch_since_midnight = True
-
-[feedly]
-stream_id = your_stream_id
-api_key = your_api_key
-
-[opencti]
-url = your_opencti_url
-api_key = your_opencti_api_key
+fetch_since_midnight = <True or False>
