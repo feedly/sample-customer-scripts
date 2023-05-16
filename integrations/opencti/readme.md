@@ -1,10 +1,10 @@
 # OpenCTI Feedly Integration
 
-This Python script allows integration between OpenCTI and Feedly. It fetches indicators of compromise (IoCs) from Feedly and inserts them into OpenCTI.
+This Python script allows integration between OpenCTI and Feedly. It fetches STIX data from Feedly and inserts them into OpenCTI.
 
 ## Requirements
 
-This script requires Python 3.6 or later. If you do not have Python installed, you can download it from the [official Python website](https://www.python.org/downloads/).
+This script requires Python 3.6 or later (and was tested on Python 3.11). If you do not have Python installed, you can download it from the [official Python website](https://www.python.org/downloads/).
 
 In addition to Python, this script needs several Python packages:
 
@@ -93,7 +93,7 @@ If you experience any issues while setting up or running this script, please ens
 
 - Verifying that your `config.ini` file is correctly formatted and includes all the necessary details.
 
-- Making sure that your Feedly and OpenCTI credentials are correct. You can confirm this by logging into your accounts on the respective platforms. The URL for OpenCTI should not include a forwared slash (/) at the end.
+- Making sure that your Feedly and OpenCTI credentials are correct. You can confirm this by logging into your accounts on the respective platforms. The URL for OpenCTI should not include a forward slash (/) at the end.
 
 - Ensuring that you're running the script from within the Python virtual environment. If you're not sure, you can activate the environment by following the steps in the "Setup" section above.
 
