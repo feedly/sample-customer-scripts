@@ -1,2 +1,4 @@
 python/article_data.csv
 .DS_Store
+venv
+config.ini
