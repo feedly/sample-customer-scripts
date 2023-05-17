@@ -1,10 +1,10 @@
 # OpenCTI Feedly Integration
 
-This Python script allows integration between OpenCTI and Feedly. It fetches STIX data from Feedly and inserts them into OpenCTI.
+This Python script allows integration between OpenCTI and Feedly. It fetches STIX objects from Feedly and inserts them into OpenCTI.
 
 ## Requirements
 
-This script requires Python 3.6 or later (and was tested on Python 3.11). If you do not have Python installed, you can download it from the [official Python website](https://www.python.org/downloads/).
+This script was tested on Python 3.11 on MacOS. If you do not have Python installed, you can download it from the [official Python website](https://www.python.org/downloads/).
 
 In addition to Python, this script needs several Python packages:
 
@@ -21,15 +21,15 @@ In addition to Python, this script needs several Python packages:
 
 3. Navigate to the directory containing the script using the `cd` command in the terminal. For example: `cd C:\Users\YourName\Downloads\feedly-importer` (Windows) or `cd /home/YourName/Downloads/feedly-importer` (Unix-like systems).
 
-4. Create a Python virtual environment. This step is optional but recommended as it isolates the script and its dependencies from other Python projects on your system. Type the following command in the terminal and press Enter:
+4. Create a Python virtual environment. This step is optional but recommended as it isolates the script and its dependencies from other Python projects on your system. If you have trouble installing the required Python packages, make sure you use Python 3.11 (or higher). This version of Python might help avoid issues when instaling the readability-lxml and its dependencies. Type the following command in the terminal and press Enter:
 
 ```shell
-python -m venv env
+python3.11 -m venv venv
 ```
 
-5. Activate the virtual environment. On Windows, type env\Scripts\activate and press Enter. On Unix-like systems, type source env/bin/activate and press Enter. You should see (env) in your terminal prompt.
+5. Activate the virtual environment. On Windows, type env\Scripts\activate and press Enter. On Unix-like systems, type `source env/bin/activate` and press Enter. You should see (venv) in your terminal prompt.
 
-6. Install the required Python packages. You can do this by running pip install -r requirements.txt.
+6. Install the required Python packages. You can do this by running `pip install -r requirements.txt`.
 
 7. Create a config.ini file in the same directory as the script. This file should contain the following sections and fields:
 
