@@ -62,7 +62,7 @@ sudo apt-get install libxml2-dev libxslt-dev
 python3 -m venv venv
 ```
 
-5. Activate the virtual environment. On Windows, type env\Scripts\activate and press Enter. On Unix-like systems, type `source env/bin/activate` and press Enter. You should see (venv) in your terminal prompt.
+5. Activate the virtual environment. On Windows, type `venv\Scripts\activate` and press Enter. On Unix-like systems, type `source venv/bin/activate` and press Enter. You should see (venv) in your terminal prompt.
 
 6. Install the required Python packages. You can do this by running `pip3 install -r requirements.txt`.
 
@@ -109,7 +109,7 @@ You can use Task Scheduler:
 You can use cron:
 
 1. Open the terminal.
-2. Type crontab -e and press Enter.
+2. Type `crontab -e` and press Enter.
 3. To run the script every 4 hours, add a line like this:
 
 ```cron
