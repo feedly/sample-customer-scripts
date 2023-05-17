@@ -13,23 +13,58 @@ In addition to Python, this script needs several Python packages:
 - `readability-lxml==0.8.1`
 - `requests==2.28.2`
 
+### Installing readability-lxml Dependencies
+
+The readability-lxml package has additional dependencies that need to be installed depending on your operating system.
+
+**Windows**
+
+For Windows, the easiest way to install the dependencies is to use a precompiled binary wheel for lxml, which includes the required libxml2 and libxslt libraries. You can install it with pip:
+
+```bash
+pip3 install lxml
+```
+
+**MacOS**
+
+In MacOS, you can use the package manager Homebrew to install the dependencies. If you don't have Homebrew installed, you can install it with the following command in your terminal:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+On MacOS, you need to install libxml2 and libxslt. You can do this using Homebrew:
+
+```shell
+brew install libxml2 libxslt
+```
+
+**Linux**
+
+For Ubuntu and other Debian-based distributions, you can use the following commands:
+
+```shell
+sudo apt-get update
+sudo apt-get install libxml2-dev libxslt-dev
+```
+
 ## Setup
 
 1. Download or clone this repository to your local machine.
 
-2. Install Python if it's not installed. Check the installation by opening a terminal (Command Prompt for Windows users) and typing `python --version`. You should see a response with the Python version number.
+2. Install Python if it's not installed. Check the installation by opening a terminal (Command Prompt for Windows users) and typing `python3 --version`. You should see a response with the Python version number.
 
 3. Navigate to the directory containing the script using the `cd` command in the terminal. For example: `cd C:\Users\YourName\Downloads\feedly-importer` (Windows) or `cd /home/YourName/Downloads/feedly-importer` (Unix-like systems).
 
 4. Create a Python virtual environment. This step is optional but recommended as it isolates the script and its dependencies from other Python projects on your system. If you have trouble installing the required Python packages, make sure you use Python 3.11 (or higher). This version of Python might help avoid issues when instaling the readability-lxml and its dependencies. Type the following command in the terminal and press Enter:
 
 ```shell
-python3.11 -m venv venv
+python3 -m venv venv
 ```
 
 5. Activate the virtual environment. On Windows, type env\Scripts\activate and press Enter. On Unix-like systems, type `source env/bin/activate` and press Enter. You should see (venv) in your terminal prompt.
 
-6. Install the required Python packages. You can do this by running `pip install -r requirements.txt`.
+6. Install the required Python packages. You can do this by running `pip3 install -r requirements.txt`.
 
 7. Create a config.ini file in the same directory as the script. This file should contain the following sections and fields:
 
@@ -53,7 +88,7 @@ Replace the placeholders (<...>) with your actual values.
 You can run the script by using the following command in the terminal:
 
 ```shell
-python feedly-importer.py
+python3 feedly-importer.py
 ```
 
 ## Scheduling the Script
@@ -89,7 +124,7 @@ Press Ctrl+X to exit the editor, then Y to save the changes and Enter to confirm
 
 If you experience any issues while setting up or running this script, please ensure that you've followed all the steps in this guide correctly. Most common issues can be resolved by:
 
-- Checking that all the required Python packages are installed. You can check this by running `pip freeze` in the terminal. The output should include all the packages listed in the "Requirements" section above.
+- Checking that all the required Python packages are installed. You can check this by running `pip3 freeze` in the terminal. The output should include all the packages listed in the "Requirements" section above.
 
 - Verifying that your `config.ini` file is correctly formatted and includes all the necessary details.
 
