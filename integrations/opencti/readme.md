@@ -49,7 +49,8 @@ The Python package magic used in this script requires the libmagic library. This
 
 Here are instructions for installing libmagic on various operating systems:
 
-macOS
+**macOS**
+
 If you're using macOS, you can use Homebrew to install the library:
 
 ```shell
@@ -57,6 +58,7 @@ brew install libmagic
 ```
 
 **Linux**
+
 If you're using a Debian-based Linux distribution (like Ubuntu), you can use apt-get to install the library:
 
 ```shell
