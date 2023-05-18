@@ -10,14 +10,6 @@ This script was tested on Python 3.11 on MacOS. If you do not have Python instal
 
 The readability-lxml package has additional dependencies that need to be installed depending on your operating system.
 
-**Windows**
-
-For Windows, the easiest way to install the dependencies is to use a precompiled binary wheel for lxml, which includes the required libxml2 and libxslt libraries. You can install it with pip:
-
-```bash
-pip3 install lxml
-```
-
 **MacOS**
 
 In MacOS, you can use the package manager Homebrew to install the dependencies. If you don't have Homebrew installed, you can install it with the following command in your terminal:
@@ -41,6 +33,14 @@ For Ubuntu and other Debian-based distributions, you can use the following comma
 ```shell
 sudo apt-get update
 sudo apt-get install libxml2-dev libxslt-dev
+```
+
+**Windows**
+
+For Windows, the easiest way to install the dependencies is to use a precompiled binary wheel for lxml, which includes the required libxml2 and libxslt libraries. You can install it with pip:
+
+```bash
+pip3 install lxml
 ```
 
 ### Installing libmagic
