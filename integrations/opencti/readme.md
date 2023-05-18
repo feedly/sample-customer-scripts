@@ -6,13 +6,6 @@ This Python script allows integration between OpenCTI and Feedly. It fetches STI
 
 This script was tested on Python 3.11 on MacOS. If you do not have Python installed, you can download it from the [official Python website](https://www.python.org/downloads/).
 
-In addition to Python, this script needs several Python packages:
-
-- `pycti==5.7.4`
-- `pytz==2023.3`
-- `readability-lxml==0.8.1`
-- `requests==2.28.2`
-
 ### Installing readability-lxml Dependencies
 
 The readability-lxml package has additional dependencies that need to be installed depending on your operating system.
@@ -33,6 +26,8 @@ In MacOS, you can use the package manager Homebrew to install the dependencies. 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
+After you install Homebrew, it will ask you to add it to your PATH. Please follow the instructions on how do do this. Once you install Homebrew, you may need to open a new terminal window for the brew commands to work.
+
 On MacOS, you need to install libxml2 and libxslt. You can do this using Homebrew:
 
 ```shell
@@ -48,25 +43,63 @@ sudo apt-get update
 sudo apt-get install libxml2-dev libxslt-dev
 ```
 
-## Setup
+### Installing libmagic
+
+The Python package magic used in this script requires the libmagic library. This is a system-level library that needs to be installed separately.
+
+Here are instructions for installing libmagic on various operating systems:
+
+macOS
+If you're using macOS, you can use Homebrew to install the library:
+
+```shell
+brew install libmagic
+```
+
+**Linux**
+If you're using a Debian-based Linux distribution (like Ubuntu), you can use apt-get to install the library:
+
+```shell
+sudo apt-get install libmagic1
+```
+
+If you're using a Red Hat-based Linux distribution (like CentOS), you can use yum to install the library:
+
+```shell
+sudo yum install file-libs
+```
+
+**Windows**
+
+On Windows, the situation is a bit more complex because libmagic isn't readily available. However, the python-magic-bin package provides pre-compiled binary wheels for the magic module, which include the necessary library:
+
+```shell
+pip install python-magic-bin==0.4.14
+```
+
+Please note, these instructions are for the command line (Terminal for macOS and Linux, Command Prompt for Windows). If you're not familiar with using the command line, you may need to learn how to navigate it or seek further assistance.
+
+## Intructions
 
 1. Download or clone this repository to your local machine.
 
 2. Install Python if it's not installed. Check the installation by opening a terminal (Command Prompt for Windows users) and typing `python3 --version`. You should see a response with the Python version number.
 
-3. Navigate to the directory containing the script using the `cd` command in the terminal. For example: `cd C:\Users\YourName\Downloads\feedly-importer` (Windows) or `cd /home/YourName/Downloads/feedly-importer` (Unix-like systems).
+3. Install the prerequisites, including readability-lxml dependencies and libmagic (see above for detailed steps)
 
-4. Create a Python virtual environment. This step is optional but recommended as it isolates the script and its dependencies from other Python projects on your system. If you have trouble installing the required Python packages, make sure you use Python 3.11 (or higher). This version of Python might help avoid issues when instaling the readability-lxml and its dependencies. Type the following command in the terminal and press Enter:
+4. Navigate to the directory containing the script using the `cd` command in the terminal. For example: `cd C:\Users\YourName\Downloads\feedly-importer` (Windows) or `cd /home/YourName/Downloads/feedly-importer` (Unix-like systems).
+
+5. Create a Python virtual environment. This step is optional but recommended as it isolates the script and its dependencies from other Python projects on your system. If you have trouble installing the required Python packages, make sure you use Python 3.11 (or higher). This version of Python might help avoid issues when instaling the readability-lxml and its dependencies. Type the following command in the terminal and press Enter:
 
 ```shell
 python3 -m venv venv
 ```
 
-5. Activate the virtual environment. On Windows, type `venv\Scripts\activate` and press Enter. On Unix-like systems, type `source venv/bin/activate` and press Enter. You should see (venv) in your terminal prompt.
+6. Activate the virtual environment. On Windows, type `venv\Scripts\activate` and press Enter. On Unix-like systems, type `source venv/bin/activate` and press Enter. You should see (venv) in your terminal prompt.
 
-6. Install the required Python packages. You can do this by running `pip3 install -r requirements.txt`.
+7. Install the required Python packages. You can do this by running `pip3 install -r requirements.txt`.
 
-7. Create a config.ini file in the same directory as the script. This file should contain the following sections and fields:
+8. Create a config.ini file in the same directory as the script. This file should contain the following sections and fields:
 
 ```ini
 [OpenCTI]
@@ -126,9 +159,9 @@ If you experience any issues while setting up or running this script, please ens
 
 - Checking that all the required Python packages are installed. You can check this by running `pip3 freeze` in the terminal. The output should include all the packages listed in the "Requirements" section above.
 
-- Verifying that your `config.ini` file is correctly formatted and includes all the necessary details.
+- Verifying that your `config.ini` file is correctly formatted and includes all the necessary details *(Important: The URL for OpenCTI should not include a forward slash (/) at the end - or anything after the hostname).*
 
-- Making sure that your Feedly and OpenCTI credentials are correct. You can confirm this by logging into your accounts on the respective platforms. The URL for OpenCTI should not include a forward slash (/) at the end.
+- Making sure that your Feedly and OpenCTI credentials are correct. You can confirm this by logging into your accounts on the respective platforms. The account used to access OpenCTI should have administrative privileges.
 
 - Ensuring that you're running the script from within the Python virtual environment. If you're not sure, you can activate the environment by following the steps in the "Setup" section above.
 
