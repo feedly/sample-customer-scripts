@@ -81,7 +81,7 @@ pip install python-magic-bin==0.4.14
 
 Please note, these instructions are for the command line (Terminal for macOS and Linux, Command Prompt for Windows). If you're not familiar with using the command line, you may need to learn how to navigate it or seek further assistance.
 
-## Intructions
+## Instructions
 
 1. Download or clone this repository to your local machine.
 
