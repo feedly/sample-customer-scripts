@@ -1,6 +1,43 @@
 # OpenCTI Feedly Integration
 
-This Python script allows integration between OpenCTI and Feedly. It fetches STIX objects from Feedly and inserts them into OpenCTI.
+This Python script allows integration between OpenCTI and Feedly. It fetches STIX objects from Feedly and inserts them into your OpenCTI server. This script was tested on MacOS Ventura 13.4 with Python 3.11.3. The OpenCTI environment used for testing had both the MITRE and OpenCTI dataset connectors enabled.
+
+## Instructions
+
+1. Download or clone this repository to your local machine.
+
+2. Install Python if it's not installed. Check the installation by opening a terminal (Command Prompt for Windows users) and typing `python3 --version`. You should see a response with the Python version number.
+
+3. Install the prerequisites, including readability-lxml dependencies and libmagic (see below for detailed steps).
+
+4. Navigate to the directory containing the script using the `cd` command in the terminal. For example: `cd C:\Users\[YourName]\Downloads\feedly-importer` (Windows) or `cd /home/[YourName]/Downloads/feedly-importer` (Unix-like systems).
+
+5. Create a Python virtual environment. This step is optional but recommended as it isolates the script and its dependencies from other Python projects on your system. If you have trouble installing the required Python packages, make sure you use Python 3.11 (or higher). This version of Python might help avoid issues when instaling the readability-lxml and its dependencies. Type the following command in the terminal and press Enter:
+
+```shell
+python3 -m venv venv
+```
+
+6. Activate the virtual environment. On Windows, type `venv\Scripts\activate` and press Enter. On Unix-like systems, type `source venv/bin/activate` and press Enter. You should see (venv) in your terminal prompt.
+
+7. Install the required Python packages. You can do this by running `pip3 install -r requirements.txt`.
+
+8. Create a config.ini file in the same directory as the script. This file should contain the following sections and fields:
+
+```ini
+[OpenCTI]
+url = <Your OpenCTI URL>
+api_key = <Your OpenCTI API Key>
+
+[Feedly]
+stream_id = <Your Feedly Stream ID>
+api_key = <Your Feedly API Key>
+
+[DEFAULT]
+fetch_since_midnight = <True or False>
+```
+
+Replace the placeholders (<...>) with your actual values. Do not include quotations (`"`)around your values. The OpenCTI URL should be formatted without anything after the hostname (e.g., https://10.0.0.1).
 
 ## Requirements
 
@@ -81,43 +118,6 @@ pip install python-magic-bin==0.4.14
 
 Please note, these instructions are for the command line (Terminal for macOS and Linux, Command Prompt for Windows). If you're not familiar with using the command line, you may need to learn how to navigate it or seek further assistance.
 
-## Instructions
-
-1. Download or clone this repository to your local machine.
-
-2. Install Python if it's not installed. Check the installation by opening a terminal (Command Prompt for Windows users) and typing `python3 --version`. You should see a response with the Python version number.
-
-3. Install the prerequisites, including readability-lxml dependencies and libmagic (see above for detailed steps)
-
-4. Navigate to the directory containing the script using the `cd` command in the terminal. For example: `cd C:\Users\YourName\Downloads\feedly-importer` (Windows) or `cd /home/YourName/Downloads/feedly-importer` (Unix-like systems).
-
-5. Create a Python virtual environment. This step is optional but recommended as it isolates the script and its dependencies from other Python projects on your system. If you have trouble installing the required Python packages, make sure you use Python 3.11 (or higher). This version of Python might help avoid issues when instaling the readability-lxml and its dependencies. Type the following command in the terminal and press Enter:
-
-```shell
-python3 -m venv venv
-```
-
-6. Activate the virtual environment. On Windows, type `venv\Scripts\activate` and press Enter. On Unix-like systems, type `source venv/bin/activate` and press Enter. You should see (venv) in your terminal prompt.
-
-7. Install the required Python packages. You can do this by running `pip3 install -r requirements.txt`.
-
-8. Create a config.ini file in the same directory as the script. This file should contain the following sections and fields:
-
-```ini
-[OpenCTI]
-url = <Your OpenCTI URL>
-api_key = <Your OpenCTI API Key>
-
-[Feedly]
-stream_id = <Your Feedly Stream ID>
-api_key = <Your Feedly API Key>
-
-[DEFAULT]
-fetch_since_midnight = <True or False>
-```
-
-Replace the placeholders (<...>) with your actual values.
-
 ## Running the Script
 
 You can run the script by using the following command in the terminal:
@@ -129,15 +129,6 @@ python3 feedly-importer.py
 ## Scheduling the Script
 
 If you want to run this script automatically at regular intervals, you can set up a task scheduler.
-
-### Windows
-
-You can use Task Scheduler:
-
-1. Open Task Scheduler.
-2. Create a new task.
-3. In the task settings, set the action to start a program.
-4. For the program/script, enter the path to your Python executable. For the arguments, enter the path to the script. Both paths should be enclosed in quotes if they contain spaces.
 
 ### Unix-like systems (Linux, MacOS)
 
@@ -155,6 +146,15 @@ Replace /path/to/python with the path to your Python executable, and `/pathto/fe
 
 Press Ctrl+X to exit the editor, then Y to save the changes and Enter to confirm the file name.
 
+### Windows
+
+You can use Task Scheduler:
+
+1. Open Task Scheduler.
+2. Create a new task.
+3. In the task settings, set the action to start a program.
+4. For the program/script, enter the path to your Python executable. For the arguments, enter the path to the script. Both paths should be enclosed in quotes if they contain spaces.
+
 ## Troubleshooting
 
 If you experience any issues while setting up or running this script, please ensure that you've followed all the steps in this guide correctly. Most common issues can be resolved by:
@@ -166,6 +166,10 @@ If you experience any issues while setting up or running this script, please ens
 - Making sure that your Feedly and OpenCTI credentials are correct. You can confirm this by logging into your accounts on the respective platforms. The account used to access OpenCTI should have administrative privileges.
 
 - Ensuring that you're running the script from within the Python virtual environment. If you're not sure, you can activate the environment by following the steps in the "Setup" section above.
+
+- In case of network connectivity issues, the script may terminate abruptly. Re-running the script may help after waiting a few minutes.
+
+- Doublecheck that your OpenCTI instances is accessible and is able to be pinged from the client used to run this script.
 
 If you're still having issues after following these steps, please get in touch for further assistance.
 
