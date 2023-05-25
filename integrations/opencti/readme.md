@@ -1,6 +1,6 @@
-# OpenCTI Feedly Integration
+# OpenCTI x Feedly Integration
 
-This Python script allows integration between OpenCTI and Feedly. It fetches STIX objects from Feedly and inserts them into your OpenCTI server. This script was tested on MacOS Ventura 13.4 with Python 3.11.3. The OpenCTI environment used for testing had both the MITRE and OpenCTI dataset connectors enabled.
+This Python script provides a sample integration between OpenCTI and Feedly. It fetches STIX objects from Feedly and inserts them into your OpenCTI server. This script was tested on MacOS Ventura 13.4 with Python 3.11.3. The OpenCTI environment used for testing had both the MITRE and OpenCTI dataset connectors enabled.
 
 ## Instructions
 
