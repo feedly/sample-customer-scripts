@@ -167,9 +167,9 @@ If you experience any issues while setting up or running this script, please ens
 
 - Ensuring that you're running the script from within the Python virtual environment. If you're not sure, you can activate the environment by following the steps in the "Setup" section above.
 
-- In case of network connectivity issues, the script may terminate abruptly. Re-running the script may help after waiting a few minutes.
+- Re-running the script in case of network connectivity issues (e.g., if the script abruptly exits).
 
-- Doublecheck that your OpenCTI instances is accessible and is able to be pinged from the client used to run this script.
+- Doublechecking that your OpenCTI instance is accessible and is able to be pinged from the client used to run this script.
 
 If you're still having issues after following these steps, please get in touch for further assistance.
 
