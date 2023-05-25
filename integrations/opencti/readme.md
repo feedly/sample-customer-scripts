@@ -139,7 +139,7 @@ You can use cron:
 3. To run the script every 4 hours, add a line like this:
 
 ```cron
-0 */4 * * * /path/to/python /path/to/feedly-importer.py >> /path/to/log.txt 2>&1
+0 */4 * * * /path/to/venv/bin/python /path/to/feedly-importer.py >> /path/to/log.txt 2>&1
 ```
 
 Replace /path/to/python with the path to your Python executable, and `/pathto/feedly-importer.py` with the path to the script. This command also redirects the script's output and errors to a log file. Replace `/path/to/log.txt` with the path and filename where you want to store the log file. For instance, you can create a `log.txt` file in the same directory as the script, and set the path to `log.txt`.
