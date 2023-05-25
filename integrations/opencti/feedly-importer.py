@@ -107,6 +107,7 @@ while True:
 
             # Create a note object
             note_id = f"note--{uuid.uuid4()}"
+            cleaned_description = cleaned_description if len(cleaned_description) >= 2 else "No description available."
             note_object = {
                 "type": "note",
                 "id": note_id,
