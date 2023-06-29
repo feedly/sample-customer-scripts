@@ -3,9 +3,9 @@
 let
     auth_token = "YOUR API KEY",
     stream_id = "YOUR STREAM ID",
-    // epoch_time = "-86400",
+    epoch_time = Number.ToText(3 * -86400000), // minus three days in milliseconds    
     count = "100",
-    url = "https://feedly.com/v3/enterprise/ioc?streamid=" & stream_id & "&Count=" & count, // "&newerThan=" & epoch_time,
+    url = "https://feedly.com/v3/enterprise/ioc?streamid=" & stream_id & "&Count=" & count & "&newerThan=" & epoch_time,
 
     headers = [
         #"Authorization"= "Bearer " & auth_token,
