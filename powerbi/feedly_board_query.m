@@ -1,6 +1,6 @@
 let
-    auth_token = "fe_zRiOc39tTBNbOTkcEAiV7I1iYqnwbYKL0L9ymcOq",
-    stream_id = "enterprise/christeam/category/d53eb3d0-c5ba-471a-b484-eabc8f603711",
+    auth_token = "YOUR API KEY",
+    stream_id = "YOUR STREAM ID",
     epoch_time = Number.ToText(3 * -86400000), // minus three days in milliseconds
     count = "100",
     url = "https://feedly.com/v3/enterprise/ioc?streamid=" & stream_id & "&Count=" & count & "&newerThan=" & epoch_time,
