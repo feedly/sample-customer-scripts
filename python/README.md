@@ -1,56 +1,68 @@
 # Feedly API Article Fetcher
 
-This Python script allows you to fetch and save article data from the Feedly API. It supports saving article data in CSV and JSON formats.
+This Python script fetches articles from Feedly and saves them in various formats (CSV, JSON, SQL). You can configure the script using a config.ini file.
 
 ## Requirements
 
 1. Python 3.6 or later.
-2. Python libraries: argparse, requests, json, and csv. You can install them using pip:
+2. Python libraries: requests, csv, json, pymysql, configparser. You can install them using pip:
 
 ```
-pip install argparse requests
+pip install requests csv json pymysql configparser
 ```
 
-## Getting Started
+3. Obtain your personal Feedly API token. For instructions, please visit: [Feedly API Guides](https://feedly.notion.site/Feedly-API-Guides-a8794499f1144f6bb4db4aa363ab5fbd).
+4. Find the unique identifier for the Feedly stream (stream_id) you want to fetch articles from.
 
-1. Obtain your personal Feedly API token. For instructions, please visit: [Feedly API Guides](https://feedly.notion.site/Feedly-API-Guides-a8794499f1144f6bb4db4aa363ab5fbd).
-2. Find the unique identifier for the Feedly stream (stream_id) you want to fetch articles from.
+## Usage
 
-## How to Run
-
-To run the script, open a command prompt or terminal and navigate to the directory containing the script. Execute the following command:
+1. Clone this repository.
 
 ```
-python feedly_fetcher.py --token YOUR_API_TOKEN --stream_id YOUR_STREAM_ID
+git clone <repository_url>
+cd <repository_folder>
 ```
 
-Replace `YOUR_API_TOKEN` and `YOUR_STREAM_ID` with your actual Feedly API token and stream ID, respectively.
-
-By default, the script fetches 100 articles and saves them as a CSV file named "article_data.csv". You can change the behavior using optional arguments.
-
-## Optional Arguments
-
-- `--article_count N`: Fetch N articles per request (default: 100).
-- `--fetch_all`: Fetch all available articles in the stream.
-- `--hours_ago H`: Fetch articles published in the past H hours.
-- `--output_format FORMAT`: Specify the output format for the saved file (csv or json, default: csv).
-- `--max_depth D`: Set the maximum JSON depth to flatten when saving to CSV (default: 3).
-- `--columns COLUMN1 COLUMN2 ...`: List the columns to include in the output (default: id, title, origin_title, originId, published, author, unread, leoSummary_sentences_0_text, leoSummary_sentences_1_text).
-
-Example command:
+2. Install the required Python packages (if not already installed). It's recommended to use a virtual environment. Here's how to set it up:
 
 ```
-python feedly_fetcher.py --token YOUR_API_TOKEN --stream_id YOUR_STREAM_ID --article_count 50 --fetch_all --hours_ago 12 --output_format json
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 ```
 
-This command fetches all articles published in the past 12 hours, with a maximum of 50 articles per request, and saves them as a JSON file.
+3. Set up your MySQL server (if you're planning to save to MySQL).
 
-For more information on the command line arguments, run:
+On Ubuntu, you can do this using the following commands:
 
 ```
-python feedly_fetcher.py --help
+sudo apt-get update
+sudo apt-get install mysql-server
+sudo mysql_secure_installation
 ```
 
-## Output
+On Mac OS, you can use Homebrew:
 
-The script will generate a file named "article_data.csv" or "article_data.json" in the same directory as the script, containing the fetched article data.
+```
+brew update
+brew install mysql
+mysql.server start
+mysql_secure_installation
+```
+
+4. Create your MySQL database and user (if necessary) and grant necessary permissions for the user on the database.
+5. Create a config.ini file in the same directory as your script. A example config file is included in this repo. Replace any placeholders with your actual data.
+6. Run the script:
+
+```
+python feedly_fetcher.py
+```
+
+7. The articles will be fetched and saved in the format specified in your config file.
+
+## Notes
+
+- The 'token' and 'stream_id' under 'Feedly' section in the config file are required to access the Feedly API. You can generate your Feedly API token from Feedly's developer portal.
+- The 'columns' option under 'Feedly' allows you to specify the columns you want to save when writing to CSV or MySQL. The column names should match the keys in the JSON objects returned by the Feedly API. If you leave this blank, all columns will be saved.
+- The 'output_format' option can be 'csv', 'json', or 'sql'. This controls the format in which the articles are saved.
+- The options under the 'MySQL' section are required if you want to save the articles in a MySQL database. You'll need to replace the placeholders with your actual MySQL host, user, password, database, and table names. The user should have read and write permissions on the database.

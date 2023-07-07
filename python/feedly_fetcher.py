@@ -1,9 +1,12 @@
-import argparse
 import sys
 import time
 import requests
 import csv
 import json
+import pymysql
+import configparser
+
+
 
 def flatten_json(d, prefix='', separator='_', max_depth=None, depth=0):
     flattened = {}
@@ -85,32 +88,86 @@ class FeedlyFetcher:
 
         print('Article data has been successfully saved to "article_data.json"')
 
+    def save_to_mysql(self, article_list, host, user, password, database_name, table_name, columns):
+        if not article_list:
+            print('No articles were fetched. Exiting.')
+            sys.exit(0)
+
+        connection = pymysql.connect(
+            host=host,
+            user=user,
+            password=password,
+            database=database_name
+        )
+
+        cursor = connection.cursor()
+
+        flattened_articles = [flatten_json(article) for article in article_list]
+
+        # Filter out unwanted keys based on the column names specified in the config file.
+        flattened_articles = [
+            {key: article[key] for key in columns if key in article}
+            for article in flattened_articles
+        ]
+
+        column_names_types = [
+            f"`{column_name}` TEXT"
+            for column_name in columns
+        ]
+        create_table_query = f"CREATE TABLE IF NOT EXISTS `{table_name}` ({', '.join(column_names_types)}) ROW_FORMAT=DYNAMIC;"
+        cursor.execute(create_table_query)
+        connection.commit()
+
+        # Now we insert the data
+        for article in flattened_articles:
+            column_names = ', '.join(f"`{column_name}`" for column_name in article.keys())
+            insert_query = f"INSERT INTO `{table_name}` ({column_names}) VALUES ({', '.join(['%s'] * len(article))});"
+            cursor.execute(insert_query, tuple(article.values()))
+
+        connection.commit()
+        print('Article data has been successfully saved to MySQL')
+
+
 def main():
-    parser = argparse.ArgumentParser(description='Fetch and save article data from the Feedly API')
-    parser.add_argument('--token', required=True, help='Your personal Feedly API key')
-    parser.add_argument('--stream_id', required=True, help='The unique identifier for the Feedly stream')
-    parser.add_argument('--article_count', type=int, default=100, help='The number of articles to fetch from the Feedly API per request (default: 100)')
-    parser.add_argument('--fetch_all', action='store_true', help='Fetch all articles available in the stream. If this option is not specified, fetch articles based on --article_count.')
-    parser.add_argument('--hours_ago', type=int, help='Number of hours ago to fetch articles from. (e.g., 12 for articles published in the past 12 hours)')
-    parser.add_argument('--output_format', choices=['csv', 'json'], default='csv', help='The output format for the saved file (default: csv)')
-    parser.add_argument('--max_depth', type=int, default=3, help='The maximum JSON depth to flatten when saving to CSV (default: 3)')
-    parser.add_argument('--columns', nargs='*', default=['id', 'title', 'origin_title', 'originId', 'published', 'author', 'unread', 'leoSummary_sentences_0_text', 'leoSummary_sentences_1_text'], help='The list of columns to include in the output (default: id, title, published, originId, author, etc.)')
+    config = configparser.ConfigParser()
+    config.read('config.ini')
 
-    args = parser.parse_args()
+    feedly_config = config['Feedly']
+    mysql_config = config['MySQL']
 
-    fetcher = FeedlyFetcher(args.token, args.stream_id, args.article_count)
+    token = feedly_config.get('token')
+    stream_id = feedly_config.get('stream_id')
+    article_count = feedly_config.getint('article_count', fallback=100)
+    fetch_all = feedly_config.getboolean('fetch_all', fallback=False)
+    hours_ago = feedly_config.getint('hours_ago', fallback=None)
+    output_format = feedly_config.get('output_format', fallback='csv')
+    max_depth = feedly_config.getint('max_depth', fallback=3)
+    columns = [column.strip() for column in feedly_config.get('columns', fallback='').split(',')]
+
+    fetcher = FeedlyFetcher(token, stream_id, article_count)
     last_timestamp = None
 
-    if args.hours_ago:
-        hours_ago_ms = args.hours_ago * 3600 * 1000
+    if hours_ago:
+        hours_ago_ms = hours_ago * 3600 * 1000
         last_timestamp = int(time.time() * 1000) - hours_ago_ms
 
-    all_articles = fetcher.fetch_articles(fetch_all=args.fetch_all, last_timestamp=last_timestamp)
+    all_articles = fetcher.fetch_articles(fetch_all=fetch_all, last_timestamp=last_timestamp)
 
-    if args.output_format == 'csv':
-        fetcher.save_to_csv(all_articles, args.max_depth, args.columns)
-    elif args.output_format == 'json':
+    if output_format == 'csv':
+        fetcher.save_to_csv(all_articles, max_depth, columns)
+    elif output_format == 'json':
         fetcher.save_to_json(all_articles)
+    elif output_format == 'sql':
+        fetcher.save_to_mysql(
+            all_articles, 
+            mysql_config['host'],
+            mysql_config['user'],
+            mysql_config['password'],
+            mysql_config['database'],
+            mysql_config['table'],
+            columns  # Pass the columns from the config here.
+        )
+
 
 if __name__ == '__main__':
     main()

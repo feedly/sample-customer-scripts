@@ -1,0 +1,16 @@
+[Feedly]
+token = YOUR_FEEDLY_TOKEN
+stream_id = YOUR_STREAM_ID
+article_count = 100
+fetch_all = True
+hours_ago = 24
+output_format = csv
+max_depth = 3
+columns = id, title, origin_title, originId, published, author, unread, leoSummary_sentences_0_text, leoSummary_sentences_1_text
+
+[MySQL]
+host = localhost
+user = root
+password = 
+database = ioc_database
+table = test
