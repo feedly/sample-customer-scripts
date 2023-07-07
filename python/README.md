@@ -62,7 +62,7 @@ python feedly_fetcher.py
 
 ## Notes
 
-- The 'token' and 'stream_id' under 'Feedly' section in the config file are required to access the Feedly API. You can generate your Feedly API token from the Manage Team area of your Feedly account. Here are more detailed instructions: https://feedly.notion.site/How-to-create-and-manage-your-Feedly-API-access-tokens-a5b6cd75aaff4144beebecc56dcb06cc.
+- The 'token' and 'stream_id' under 'Feedly' section in the config file are required to access the Feedly API. You can generate your Feedly API token from the Manage Team area of your Feedly account.
 - The 'columns' option under 'Feedly' allows you to specify the columns you want to save when writing to CSV or MySQL. The column names should match the keys in the JSON objects returned by the Feedly API. If you leave this blank, all columns will be saved.
 - The 'output_format' option can be 'csv', 'json', or 'sql'. This controls the format in which the articles are saved.
 - The options under the 'MySQL' section are required if you want to save the articles in a MySQL database. You'll need to replace the placeholders with your actual MySQL host, user, password, database, and table names. The user should have read and write permissions on the database.
