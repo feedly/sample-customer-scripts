@@ -77,11 +77,13 @@ while True:
     tlp_clear = opencti_api_client.marking_definition.read(filters=[{"key": "definition", "values": ["TLP:CLEAR"]}])
 
     # Create or get "Feedly Connector" organization
-    connector_identity = opencti_api_client.identity.create(
-        type='Organization',
-        name='Feedly Connector',
-        description='Feedly Connector providing information from Feedly.',
-    )
+    connector_identity = opencti_api_client.identity.read(filters=[{"key": "name", "values": ["Feedly Connector"]}])
+    if not connector_identity:
+        connector_identity = opencti_api_client.identity.create(
+            type='Organization',
+            name='Feedly Connector',
+            description='Feedly Connector providing information from Feedly.',
+        )
 
     # Initialize lists to separate entities and relationships
     entities = []
@@ -101,7 +103,7 @@ while True:
     for stix_object in stix_data["objects"]:
         # Modify the source_name if necessary
         if "external_references" in stix_object:
-            for external_reference in stix_object["external_references"]:
+            for external_reference in stix_object.get("external_references"):
                 if len(external_reference.get("source_name", "")) <= 2:
                     external_reference["source_name"] = "External report"
         # Modify the properties of all objects
@@ -116,8 +118,10 @@ while True:
             indicator_id = stix_object["id"]
             pattern = stix_object["pattern"]
             # Extract the IOC value from the pattern
-            indicator_value = re.search(r"'(.*?)'", pattern).group(1)
-            stix_object['name'] = indicator_value
+            match = re.search(r"'(.*?)'", pattern)
+            if match:
+                indicator_value = match.group(1)
+                stix_object['name'] = indicator_value
 
         # Special handling for Report objects
         if stix_object["type"] == "report":
