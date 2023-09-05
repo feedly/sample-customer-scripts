@@ -8,7 +8,7 @@ This Python script fetches articles from Feedly and saves them in various format
 2. Python libraries: requests, csv, json, pymysql, configparser. You can install them using pip:
 
 ```
-pip install requests csv json pymysql configparser
+pip install requests pymysql
 ```
 
 3. Obtain your personal Feedly API token. For instructions, please visit: [Feedly API Guides](https://feedly.notion.site/Feedly-API-Guides-a8794499f1144f6bb4db4aa363ab5fbd).
