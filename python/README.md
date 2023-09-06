@@ -5,7 +5,7 @@ This Python script fetches articles from Feedly and saves them in various format
 ## Requirements
 
 1. Python 3.6 or later.
-2. Python libraries: requests, csv, json, pymysql, configparser. You can install them using pip:
+2. Python libraries: requests, pymysql. You can install them using pip:
 
 ```
 pip install requests pymysql
