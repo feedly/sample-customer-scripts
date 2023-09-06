@@ -103,7 +103,7 @@ pip install requests
 3. Run the script:
 
 ```
-python feedly_power_search.py --token YOUR_FEEDLY_ENTERPRISE_TOKEN --query_file sample_power_search_sample_power_search_query.json
+python feedly_power_search.py --token YOUR_FEEDLY_ENTERPRISE_TOKEN --query_file sample_power_search_query.json
 ```
 
 ### Example Usage
