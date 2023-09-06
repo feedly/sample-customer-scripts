@@ -1,0 +1,65 @@
+{
+    "layers": [
+        {
+            "parts": [
+                {
+                    "aliases": [],
+                    "id": "nlp/f/entity/cl:christeam:1ApplicationsforMonitoring-xv6g21",
+                    "label": "1 Applications for Monitoring ",
+                    "type": "customTopic"
+                }
+            ],
+            "type": "matches",
+            "salience": "mention"
+        },
+        {
+            "parts": [
+                {
+                    "aliases": [
+                        "G.B.R.",
+                        "U K",
+                        "British",
+                        "G B R",
+                        "the United Kingdom",
+                        "Great Britain and Northern Ireland",
+                        "G B",
+                        "U. K.",
+                        "Britain",
+                        "United Kingdom of Great Britain and Northern Ireland",
+                        "Briton",
+                        "Great Britain",
+                        "G.B.",
+                        "UK",
+                        "The United Kingdom of Great Britain and Northern Ireland",
+                        "Britons",
+                        "G. B.",
+                        "The UK",
+                        "U.K.",
+                        "The United Kingdom"
+                    ],
+                    "id": "nlp/f/entity/gz:loc:145",
+                    "label": "United Kingdom",
+                    "type": "location"
+                }
+            ],
+            "type": "matches",
+            "salience": "mention"
+        }
+    ],
+    "source": {
+        "items": [
+            {
+                "id": "discovery:all-topics",
+                "label": "All Feedly Sources",
+                "tier": "tier1",
+                "type": "publicationBucket",
+                "description": "Millions of news sites, blogs, trade magazines, subreddits, newsletters, and more"
+            },
+            {
+                "id": "enterprise/christeam/category/global.all",
+                "label": "All Team Feeds",
+                "type": "stream"
+            }
+        ]
+    }
+}
