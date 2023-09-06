@@ -1,4 +1,4 @@
-# Feedly Article Fetcher (from Boards/Folders)
+# Sample Script: Feedly Article Fetcher (from Boards/Folders)
 
 This Python script fetches articles from Feedly and saves them in various formats (CSV, JSON, SQL). You can configure the script using a config.ini file.
 
@@ -67,7 +67,7 @@ python feedly_fetcher.py
 - The 'output_format' option can be 'csv', 'json', or 'sql'. This controls the format in which the articles are saved.
 - The options under the 'MySQL' section are required if you want to save the articles in a MySQL database. You'll need to replace the placeholders with your actual MySQL host, user, password, database, and table names. The user should have read and write permissions on the database.
 
-## Feedly Power Search Exporter
+# Sample Script: Feedly Power Search Exporter
 
 This Python script fetches articles from Feedly using the Power Search API and saves them in a JSON format. Unlike the previous script, this one is more focused on searching for articles based on specific criteria and does not require a config.ini file.
 
