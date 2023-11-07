@@ -57,23 +57,18 @@ def fetch_feedly_data(newer_than):
         print(response.text)
         return None
 
-def send_to_splunk(data, splunk_hec_url, splunk_hec_token):
+def send_to_splunk(data):
     """
     Sends the given data to the Splunk HEC endpoint.
     Each object within the 'objects' array is sent as an individual event.
     """
-    headers = {
-        "Authorization": f"Splunk {splunk_hec_token}",
-        "Content-Type": "application/json"
-    }
-
     # Iterate over each object in the "objects" array
     for event in data["objects"]:
         # Convert the individual object to a JSON string
         event_data = json.dumps({"event": event})
         
         # Make the POST request to the Splunk HEC for each event
-        response = requests.post(splunk_hec_url, headers=headers, data=event_data, verify=False)
+        response = requests.post(SPLUNK_HEC_URL, headers=SPLUNK_HEADERS, data=event_data, verify=False)
         
         # Check if the request was successful
         if response.status_code == 200:
