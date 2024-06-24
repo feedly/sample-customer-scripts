@@ -6,7 +6,7 @@ CSV_FILE_PATH = 'YOUR CSV FILE PATH' # Add the absolute or relative CSV file pat
 BASE_URL = 'https://api.feedly.com/v3'
 
 def get_entity_id(query, api_key):
-    url = f'{BASE_URL}/search/entities?query={query.replace(' ', '%20')}'
+    url = f"{BASE_URL}/search/entities?query={query.replace(' ', '%20')}"
     headers = {'Authorization': f'Bearer {api_key}'}
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
