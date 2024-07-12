@@ -2,10 +2,12 @@ import sys
 import time
 import requests
 import csv
-from collections import defaultdict
 import re
+import html
+from collections import defaultdict
+from datetime import datetime
 
-def flatten_json(d, prefix='', separator='_', max_depth=3, depth=0):
+def flatten_json(d, prefix='', separator='_', max_depth=5, depth=0):
     flattened = {}
     if max_depth is not None and depth >= max_depth:
         return {prefix: d}
@@ -50,21 +52,57 @@ def fetch_articles(token, stream_id, article_count, fetch_all=False, last_timest
 
     return all_articles
 
+def clean_text(text):
+    # Decode HTML entities
+    text = html.unescape(text)
+    # Remove any remaining non-printable characters
+    return ''.join(char for char in text if char.isprintable())
+
+def epoch_to_date(epoch_ms):
+    return datetime.fromtimestamp(epoch_ms / 1000).strftime('%Y-%m-%d %H:%M:%S')
+
 def save_to_csv(article_list, columns=None):
     if not article_list:
         print('No articles were fetched or processed. Exiting.')
         sys.exit(0)
 
-    flattened_articles = [flatten_json(article) for article in article_list]
+    # Remove duplicates based on 'id' and 'title'
+    unique_articles = {}
+    for article in article_list:
+        article_id = article['id']
+        article_title = clean_text(article.get('title', ''))
+        
+        # Use both id and title as a composite key for deduplication
+        key = (article_id, article_title)
+        
+        if key not in unique_articles:
+            unique_articles[key] = article
+
+    flattened_articles = [flatten_json(article) for article in unique_articles.values()]
     fieldnames = columns if columns else sorted(list(set().union(*(article.keys() for article in flattened_articles))))
 
     with open('article_data.csv', 'w', newline='', encoding='utf-8') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for article in flattened_articles:
-            writer.writerow({k: article.get(k, '') for k in fieldnames})
+            row = {k: article.get(k, '') for k in fieldnames}
+            
+            # Clean the title
+            if 'title' in row:
+                row['title'] = clean_text(row['title'])
+            
+            # Convert epoch time to readable date
+            if 'published' in row:
+                row['published'] = epoch_to_date(int(row['published']))
 
-    print('Article data has been successfully saved to "article_data.csv"')
+            # Convert epoch time to readable date
+            if 'crawled' in row:
+                row['crawled'] = epoch_to_date(int(row['crawled']))
+            
+            writer.writerow(row)
+
+    print(f'Article data has been successfully saved to "article_data.csv"')
+    print(f'Total articles after deduplication: {len(unique_articles)}')
 
 def get_all_columns(token, stream_id):
     sample_articles = fetch_articles(token, stream_id, article_count=10, fetch_all=False)
@@ -134,7 +172,7 @@ def main():
     article_count = 100
     fetch_all = True
     hours_ago = 24
-    columns = ['id', 'title', 'origin_title', 'originId', 'published', 'author', 'unread', 'leoSummary_sentences_0_text', 'leoSummary_sentences_1_text']
+    columns = ['id', 'title', 'origin_title', 'alternate_0_href', 'published', 'crawled', 'author', 'sources_0_title', 'sources_1_title', 'leoSummary_sentences_0_text', 'leoSummary_sentences_1_text']
 
     if len(sys.argv) > 1 and sys.argv[1] == '--columns':
         column_groups = get_all_columns(token, stream_id)
