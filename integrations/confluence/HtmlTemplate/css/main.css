@@ -1,0 +1,26 @@
+.wrapper {
+  padding: 20px 0px 20px;
+  width: 1200px;
+}
+.wrapper .element {
+  padding: 10px 10px 10px 10px;
+  display: flex;
+  flex-direction: row;
+}
+.wrapper .element .text {
+  padding-left: 20px;
+}
+.wrapper .element .text .title {
+  font-weight: bold;
+  font-size: 30px;
+  color: #010E52;
+}
+.wrapper .element .text .sources {
+  padding: 5px 0px 5px 0px;
+}
+.wrapper .element .text .sources a {
+  text-decoration: none !important;
+}
+.wrapper .element .text .moreInf a {
+  text-decoration: none !important;
+}/*# sourceMappingURL=main.css.map */
