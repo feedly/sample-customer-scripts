@@ -1,0 +1,29 @@
+.wrapper{
+    padding: 20px 0px 20px;
+    width: 1200px;
+    .element{
+        padding: 10px 10px 10px 10px;
+        display: flex;
+        flex-direction: row;
+        .text{
+            padding-left: 20px;
+            .title{
+                font-weight: bold;
+                font-size: 30px;
+                color: #010E52;
+            }
+            .sources{
+                padding: 5px 0px 5px 0px;
+                a{
+                    text-decoration: none !important;
+                }
+            }
+            .moreInf{
+                a{
+                    text-decoration: none !important;
+                } 
+            }
+        }
+
+    }
+}
