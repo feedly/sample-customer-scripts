@@ -1,0 +1,25 @@
+{
+    "layers": [
+        {
+            "parts": [
+                {
+                    "id": "nlp/f/entity/gz:ta:68391641-859f-4a9a-9a1e-3e5cf71ec376",
+                    "label": "Lazarus Group",
+                    "type": "threatActor"
+                }
+            ],
+            "type": "matches",
+            "salience": "about"
+        }
+    ],
+    "source": {
+        "items": [
+            {
+                "type": "publicationBucket",
+                "id": "byf:cybersecurity-bundle",
+                "tier": "tier1",
+                "label": "Cybersecurity Bundle"
+            }
+        ]
+    }
+}
