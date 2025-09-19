@@ -1,0 +1,48 @@
+# Feedly Configuration
+feedly:
+  api_key: "[INSERT FEEDLY API TOKEN]"
+  # Configure your cyber attack dashboard query
+  # THIS IS AN EXAMPLE; CHANGE TO YOUR OWN SAVED VIEW JSON
+  api_config:
+    {
+      "period": {
+        "type": "Last7Days",
+        "label": "Last 7 Days"
+      },
+      "layers": [
+        {
+          "filters": [
+            {
+              "field": "victimCountry",
+              "value": "GB"
+            }
+          ]
+        },
+      ]
+    }
+
+# Fields to track for changes in cyber attacks
+tracked_fields:
+  - shortOverview
+  - threatActors
+  - malwareFamilies
+  - victim
+  - attackDate
+  - what
+  - soWhat
+  - status
+
+# Database Configuration - you can change the name of your db to your preference
+database:
+  path: "cyber_attacks.db"
+
+# Slack Configuration
+slack:
+  bot_token: "[INSERT SLACK BOT TOKEN STARTING WITH xoxb- ]"
+  channel: "[INSERT CHANNEL ID]"
+
+# Gmail config
+gmail:
+  sender_email: "[INSERT SENDER EMAIK]"
+  sender_password: "[SENDER BOT PASSWORD - THIS IS NOT THE EMAIL ADDRESS PASSWROD]"
+  recipient_email: "[INSERT RECIPIENT/S]"
