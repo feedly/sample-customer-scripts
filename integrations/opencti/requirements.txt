@@ -1,4 +1,4 @@
 pycti==6.9.7
 pytz==2023.3
 readability-lxml==0.8.1
-requests==2.28.2
+requests==2.33.0
